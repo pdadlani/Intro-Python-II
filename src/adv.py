@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -33,9 +34,45 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# return new room for player
+def new_room(current_room, cmd):
+    if cmd == 'n':
+       return current_room.n_to
+    elif cmd == 's':
+       return current_room.s_to
+    elif cmd == 'e':
+       return current_room.e_to
+    elif cmd == 'w':
+       return current_room.w_to
+
 #
 # Main
 #
+def main():
+    player = Player("Talls", room['outside'])
+    while True:
+        current_room = player.current_room
+        print(player.current_room.name)
+        print(player.current_room.description)
+        cmd = input("Which direction would you like to move?: ")
+        
+        if cmd == 'q':
+            print('Player quit. Game over!')
+            break
+        
+        if cmd not in ['n', 's', 'e', 'w']:
+            print('Please provide a valid command.')
+            continue
+        
+        potential_room = new_room(current_room, cmd)
+
+        if (potential_room):
+            player.current_room = potential_room
+        else:
+            print('***No room in that direction***')
+        
+
+main()
 
 # Make a new player object that is currently in the 'outside' room.
 
