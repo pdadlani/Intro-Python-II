@@ -8,11 +8,10 @@ class Room:
     self.s_to = s_to
     self.e_to = e_to
     self.w_to = w_to
-    # if items is None:
-    #   self.items = []
-    # else:
-    #   self.items = items
-    self.items = items
+    if items is None:
+      self.items = []
+    else:
+      self.items = items
 
   def add_item(self, item):
     self.items.append(item)
